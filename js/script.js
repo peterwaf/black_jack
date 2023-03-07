@@ -10,7 +10,7 @@ let sumEl = document.getElementById("sum-el")
 let cardsEl = document.getElementById("cards-el")
 
 function startGame() {
-    // 3. Render the cars on the page using this format -> "Cards: 10 4"
+    // 3. Render the cards on the page using this format -> "Cards: 10 4"
     cardsEl.textContent = "Cards: " + firstCard + " " + secondCard
     sumEl.textContent = "Sum: " + sum
     if (sum <= 20) {
@@ -23,4 +23,11 @@ function startGame() {
         isAlive = false
     }
     messageEl.textContent = message
+}
+
+function newCard(){
+    let newCard = 5
+    sum += newCard
+    sumEl.textContent = sum
+    cardsEl.textContent = "Cards: " + firstCard + " " + secondCard + " "+ newCard
 }
