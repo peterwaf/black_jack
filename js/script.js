@@ -1,17 +1,46 @@
-let firstCard = 10
-let secondCard = 4
-let sum = firstCard + secondCard
+let player = {
+    name: "Peter Wafula",
+    chips: 200
+}
+
+let cards = []
+let sum = 0
 let hasBlackJack = false
-let isAlive = true
+let isAlive = false
 let message = ""
 let messageEl = document.getElementById("message-el")
 let sumEl = document.getElementById("sum-el")
-// 2. Store the cards paragraph in a variable called cardsEl
 let cardsEl = document.getElementById("cards-el")
+let playerEl = document.getElementById("player-el")
+
+playerEl.textContent = player.name + ": $" + player.chips
+
+function getRandomCard() {
+    let randomNumber = Math.floor( Math.random()*13 ) + 1
+    if (randomNumber > 10) {
+        return 10
+    } else if (randomNumber === 1) {
+        return 11
+    } else {
+        return randomNumber
+    }
+}
 
 function startGame() {
-    // 3. Render the cards on the page using this format -> "Cards: 10 4"
-    cardsEl.textContent = "Cards: " + firstCard + " " + secondCard
+    isAlive = true
+    let firstCard = getRandomCard()
+    let secondCard = getRandomCard()
+    cards = [firstCard, secondCard]
+    sum = firstCard + secondCard
+    renderGame()
+}
+
+function renderGame() {
+    cardsEl.textContent = "Cards: "
+    for (let i = 0; i < cards.length; i++) {
+        cardsEl.textContent += cards[i] + " "
+    }
+    
     sumEl.textContent = "Sum: " + sum
     if (sum <= 20) {
         message = "Do you want to draw a new card?"
@@ -25,9 +54,12 @@ function startGame() {
     messageEl.textContent = message
 }
 
-function newCard(){
-    let newCard = 5
-    sum += newCard
-    sumEl.textContent = sum
-    cardsEl.textContent = "Cards: " + firstCard + " " + secondCard + " "+ newCard
+
+function newCard() {
+    if (isAlive === true && hasBlackJack === false) {
+        let card = getRandomCard()
+        sum += card
+        cards.push(card)
+        renderGame()        
+    }
 }
